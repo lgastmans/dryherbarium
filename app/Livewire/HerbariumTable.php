@@ -26,7 +26,11 @@ final class HerbariumTable extends PowerGridComponent
 
     public string $primaryKey = 'herbarium.id';
 
-    public string $sortField = 'herbarium.id';  
+    public string $sortField = 'collection_number'; 
+    public string $sortDirection = 'asc';
+
+    public bool $multiSort = true;
+    
 
     public function setUp(): array
     {
@@ -90,7 +94,7 @@ final class HerbariumTable extends PowerGridComponent
                 Button::add('herbarium-save')
                     ->slot('Add plant')
                     ->class('text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80')
-                    ->route('plants.create', []),                
+                    ->route('plants.create', []),
                     // ->openModal('projects-save', []),
             ];
         }

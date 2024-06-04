@@ -14,12 +14,6 @@ class DeletePlant extends ModalComponent
     public $id;
 
 
-    public function render()
-    {
-        return view('livewire.delete-plant');
-    }
-
-
     public function delete()
     {
         $plant = Herbarium::findOrFail($this->id);
@@ -36,6 +30,12 @@ class DeletePlant extends ModalComponent
         $this->dispatch('refreshTable');
         $this->closeModal();
 
+    }
+    
+
+    public function render()
+    {
+        return view('livewire.delete-plant');
     }
 
 }

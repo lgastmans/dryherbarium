@@ -1,9 +1,7 @@
 <div>
-    <x-card title="Delete plant">
+    <x-card title="Delete place">
 
-        <p class="text-sm text-gray-500">Are you sure you want to delete this plant?</p>
-        <p class="text-sm text-gray-500">All of the data will be permanently removed.</p>
-        <p class="text-sm text-gray-500">This action cannot be undone.</p>
+        <p class="text-sm text-gray-500">Are you sure you want to delete this place?</p>
      
         <x-slot name="footer">
             <div class="flex justify-between items-center">
@@ -12,5 +10,4 @@
             </div>
         </x-slot>
     </x-card>
-    
 </div>

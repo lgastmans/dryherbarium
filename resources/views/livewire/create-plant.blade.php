@@ -1,5 +1,5 @@
 
-<div class="p-10 m-10">
+<div class="p-1 m-1">
 
     <form wire:submit="save" enctype="multipart/form-data">
 
@@ -9,7 +9,9 @@
 
             <div class="max-w-6xl px-4 py-8 mx-auto lg:py-16">
 
-                <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">{{$form->family}} {{ empty($form->family) ? "" : "|" }} {{ $form->genus }}</h2>
+                <h2 class="mb-4 py-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl lg:text-4xl dark:text-white">
+                    <span class="underline underline-offset-3 decoration-4 decoration-blue-400 dark:decoration-blue-600">{{$form->family}} {{ empty($form->family) ? "" : "|" }} {{ $form->genus }}</span>
+                </h2>
 
                 <div class="grid gap-4 mb-4 sm:grid-cols-3 sm:gap-6 sm:mb-5">
 
