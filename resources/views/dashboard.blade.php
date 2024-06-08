@@ -10,9 +10,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
+                    <button type="button" wire:click="$refresh">Load</button>
 
+                    <livewire:log-table :days="2"/>
 
-<!--                     <div class="relative overflow-x-auto">
+<!--
+                    <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <tbody>
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
@@ -41,7 +44,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div> -->
+                    </div> 
+-->
 
                     
                 </div>

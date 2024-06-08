@@ -18,9 +18,12 @@ use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 
 final class UserTable extends PowerGridComponent
 {
+    public string $sortField = 'name'; 
+    public string $sortDirection = 'asc';
+
     public function setUp(): array
     {
-        $this->showCheckBox();
+        //$this->showCheckBox();
 
         return [
             Exportable::make('export')
@@ -53,27 +56,28 @@ final class UserTable extends PowerGridComponent
         return [
             Column::make('ID', 'id')
                 ->searchable()
-                ->sortable(),
+                ->sortable()
+                ->hidden(),
 
             Column::make('Name', 'name')
-                ->searchable()
+                //->searchable()
                 ->sortable(),
 
             Column::make('Created at', 'created_at')
                 ->hidden(),
 
-            Column::make('Created at', 'created_at_formatted', 'created_at')
-                ->searchable(),
+            Column::make('Created at', 'created_at_formatted', 'created_at'),
+                //->searchable(),
 
-            Column::action('Action')
+            Column::action('Action')->hidden(),
         ];
     }
 
     public function filters(): array
     {
         return [
-            Filter::inputText('name'),
-            Filter::datepicker('created_at_formatted', 'created_at'),
+            //Filter::inputText('name'),
+            //Filter::datepicker('created_at_formatted', 'created_at'),
         ];
     }
 

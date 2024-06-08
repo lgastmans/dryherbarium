@@ -1,7 +1,7 @@
 <div>
-    <x-card title="Delete state">
+    <x-card title="Delete status">
 
-        <p class="text-sm text-gray-500">Are you sure you want to delete this state?</p>
+        <p class="text-sm text-gray-500">Are you sure you want to delete this status?</p>
      
         <x-slot name="footer">
             <div class="flex justify-between items-center">

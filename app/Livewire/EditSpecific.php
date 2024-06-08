@@ -3,11 +3,11 @@
 namespace App\Livewire;
 
 //use Livewire\Component;
-use App\Models\State;
+use App\Models\Specific;
 use Illuminate\Validation\Rule;
 use LivewireUI\Modal\ModalComponent;
 
-class EditState extends ModalComponent
+class EditSpecific extends ModalComponent
 {
     public $id = null;
     public $name = '';
@@ -17,22 +17,22 @@ class EditState extends ModalComponent
         return [
             'name' => [
                 'required',
-                Rule::unique('states')->ignore($this->name), 
+                Rule::unique('specifics')->ignore($this->name), 
             ],
         ];
     }
 
-    public function mount(State $state)
+    public function mount(Specific $specific)
     {
-        $this->id = $state->id;
-        $this->name = $state->name;
+        $this->id = $specific->id;
+        $this->name = $specific->name;
     }
 
     public function save()
     {
         $this->validate();
 
-        $model = State::find($this->id);
+        $model = Specific::find($this->id);
 
         $original = $model->name;
 
@@ -42,8 +42,8 @@ class EditState extends ModalComponent
 
         activity()
             ->performedOn($model)
-            ->withProperties(['state'=>$original." > ".$this->name])
-            ->log('State updated.');   
+            ->withProperties(['specific'=>$original." > ".$this->name])
+            ->log('Specific updated.');   
  
         $this->dispatch('refreshTable');
         $this->closeModal();
@@ -51,6 +51,6 @@ class EditState extends ModalComponent
 
     public function render()
     {
-        return view('livewire.edit-state');
+        return view('livewire.edit-specific');
     }
 }

@@ -6,7 +6,7 @@
                 <div class="grid gap-4 mb-4 sm:grid-cols-12 sm:gap-6 sm:mb-5">
 
                     <div class="sm:col-span-12">
-                        <x-input wire:model="name" label="Edit state" placeholder="State" />
+                        <x-input wire:model="name" label="Add a specific" placeholder="Specific" />
                     </div>
                     
                 </div>

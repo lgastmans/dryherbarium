@@ -1,6 +1,7 @@
 <?php
 namespace App\Livewire;
 
+use Spatie\LaravelPdf\Facades\Pdf;
 use App\Livewire\Forms\PlantForm;
 use Livewire\Component;
 use App\Models\Herbarium;
@@ -27,6 +28,10 @@ class UpdatePlant extends Component
         return $this->redirect('/plants');
     }
 
+    public function cancel()
+    {
+        return $this->redirect('/plants');
+    }
 
     #[Title('Update Plant')]
     public function render()

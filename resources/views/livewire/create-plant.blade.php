@@ -60,6 +60,7 @@
                 --}}
                 <br>
                 <x-button label="Save" positive lg green icon="save" type="submit" class="p-4"/>
+                <x-button label="Cancel" error lg red icon="x" class="p-4" wire:click="cancel" />
                 <br><br>
 
 

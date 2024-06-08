@@ -12,7 +12,6 @@ use LivewireUI\Modal\ModalComponent;
 
 class CreateGenus extends ModalComponent
 {
-
     public $name;
 
     public function rules()

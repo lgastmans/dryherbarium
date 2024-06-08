@@ -6,11 +6,11 @@ use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 
 //use Livewire\Component;
-use App\Models\State;
+use App\Models\Specific;
 use Illuminate\Validation\Rule;
 use LivewireUI\Modal\ModalComponent;
 
-class CreateState extends ModalComponent
+class CreateSpecific extends ModalComponent
 {
     public $name;
 
@@ -19,7 +19,7 @@ class CreateState extends ModalComponent
         return [
             'name' => [
                 'required',
-                Rule::unique('states')->ignore($this->name), 
+                Rule::unique('specifics')->ignore($this->name), 
             ],
         ];
     }
@@ -28,21 +28,21 @@ class CreateState extends ModalComponent
     {
         $this->validate();
 
-        $model = State::create([
+        $model = Specific::create([
             'name' => $this->name
         ]);
  
         activity()
            ->performedOn($model)
-           ->withProperties(['state'=>$this->name])
-           ->log('State added.'); 
+           ->withProperties(['specific'=>$this->name])
+           ->log('Specific added.'); 
 
-        return redirect()->to('/states')
-             ->with('status', 'State created!');
-    } 
+        return redirect()->to('/specifics')
+             ->with('status', 'Specific created!');
+    }
 
     public function render()
     {
-        return view('livewire.create-state');
+        return view('livewire.create-specific');
     }
 }

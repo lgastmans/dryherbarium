@@ -3,14 +3,14 @@
 namespace App\Livewire;
 
 //use Livewire\Component;
-use App\Models\State;
+use App\Models\Specific;
 use App\Models\Herbarium;
 use Illuminate\Validation\Rule;
 use LivewireUI\Modal\ModalComponent;
 
-class DeleteState extends ModalComponent
+class DeleteSpecific extends ModalComponent
 {
-    public State $state;
+    public Specific $specific;
 
     public $id;
 
@@ -18,14 +18,14 @@ class DeleteState extends ModalComponent
 
     public function delete()
     {
-        $herbarium = Herbarium::where('state_id','=',$this->id)->first();
+        $herbarium = Herbarium::where('specific_id','=',$this->id)->first();
 
         if ($herbarium) {
-            $this->dispatch('state-exists', Model: 'State', ColNum: $herbarium->collection_number);
+            $this->dispatch('specific-exists', Model: 'Specific', ColNum: $herbarium->collection_number);
         }
         else {
 
-            $model = State::findOrFail($this->id);
+            $model = Specific::findOrFail($this->id);
      
             $original = $model->name;
 
@@ -33,8 +33,8 @@ class DeleteState extends ModalComponent
             
             activity()
                 ->performedOn($model)
-                ->withProperties(['state'=>$original])
-                ->log('State deleted.');  
+                ->withProperties(['specific'=>$original])
+                ->log('Specific deleted.');  
 
             $this->dispatch('refreshTable');
             $this->closeModal();
@@ -43,6 +43,6 @@ class DeleteState extends ModalComponent
 
     public function render()
     {
-        return view('livewire.delete-state');
+        return view('livewire.delete-specific');
     }
 }
