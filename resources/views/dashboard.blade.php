@@ -10,8 +10,6 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
 
-                    <button type="button" wire:click="$refresh">Load</button>
-
                     <livewire:log-table :days="2"/>
 
 <!--

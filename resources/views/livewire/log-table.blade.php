@@ -18,7 +18,6 @@
                     option-label="name"
                     option-value="id"
                     wire:model="period"
-                    wire:change="load"
                 />
             </div>
             <div class="col-span-6 gap-4">

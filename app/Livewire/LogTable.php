@@ -27,23 +27,24 @@ class LogTable extends Component
         $to = Carbon::now()->subDays(6);
 
         if ($this->period == '_WEEK') {
-            $from = Carbon::now()->subDays(6)->format('Y-m-d');
-            $to = Carbon::now()->format('Y-m-d');
+            $from = Carbon::now()->subDays(6)->startOfDay()->format('Y-m-d H:i:s');
+            $to = Carbon::now()->endOfDay()->format('Y-m-d H:i:s');
         }
         elseif ($this->period == '_MONTH') {
-            $to = Carbon::now()->format('Y-m-d');
-            $from = Carbon::now()->firstOfMonth()->format('Y-m-d');
+            $to = Carbon::now()->format('Y-m-d H:i:s');
+            $from = Carbon::now()->firstOfMonth()->format('Y-m-d H:i:s');
             //dd($from, $to);
         }
         elseif ($this->period == '_6MONTHS') {
-            $to = Carbon::now()->format('Y-m-d');
-            $from = Carbon::now()->subMonths(5)->format('Y-m-d');
+            $to = Carbon::now()->format('Y-m-d H:i:s');
+            $from = Carbon::now()->subMonths(5)->format('Y-m-d H:i:s');
         }
 
         if ($this->period == '_ALL') {
             $activities = Activity::orderBy('created_at','desc')->get();
         }
         else {
+            //dd($from." ".$to);
             $activities = Activity::whereBetween('created_at', [$from, $to])->orderBy('created_at','desc')->get();
         }
 
