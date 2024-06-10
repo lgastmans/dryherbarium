@@ -21,7 +21,8 @@
                 />
             </div>
             <div class="col-span-6 gap-4">
-                <x-button sm icon="users" dark label="Load" wire:click="load" />
+                <x-button sm icon="refresh" dark label="Load" wire:click="load" />
+
             </div>
         </div>
     </form>
