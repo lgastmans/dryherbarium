@@ -14,7 +14,7 @@ class CreateUser extends Command
      *
      * @var string
      */
-    protected $signature = 'app:create-user';
+    protected $signature = 'app:create-user {username} {useremail}';
 
     /**
      * The console command description.
@@ -28,12 +28,16 @@ class CreateUser extends Command
      */
     public function handle()
     {
+
+        $userName = $this->argument('username');
+        $userEmail = $this->argument('useremail');
+
         $user = User::factory()->create([
-            'name' => 'Luk Worktree',
-            'email' => 'lgastmans@worktree.in',
-            'password' => Hash::make('lgast@WTree'),
+            'name' => $userName,
+            'email' => $userEmail,
+            'password' => Hash::make($userName.'@avbgHerb'),
         ]);
 
-        $this->line($user.' created.');
+        $this->line($userName.' created.');
     }
 }

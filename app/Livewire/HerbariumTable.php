@@ -293,12 +293,13 @@ final class HerbariumTable extends PowerGridComponent
     public function exportPdf($id): void
     {
         //$this->js('alert('.$id.')');
+        $this->js('alert("Under development.")');
         
         // $pdf = PDF::loadView('herbarium-label',  []);
         // $pdf->download('label.pdf');
         // dd($pdf);
         
-        Pdf::view('herbarium-label')->save('/herbarium_label.pdf');
+        //Pdf::view('herbarium-label')->save('/herbarium_label.pdf');
     }
 
     public function actions(Herbarium $row): array
