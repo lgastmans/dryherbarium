@@ -353,11 +353,12 @@ class PlantForm extends Form
             if ($this->herbarium->wasChanged('notes'))
                 $arrChanged['notes'] = $model->notes." > ".$this->herbarium->notes;
             
+            //$arrChanged['collection_number'] = $this->herbarium->collection_number;
 
             activity()
                 ->performedOn($model)
                 ->withProperties($arrChanged)
-                ->log('Plant details updated.');            
+                ->log('Plant details updated for collection number '.$this->herbarium->collection_number);            
         }
 
     }
