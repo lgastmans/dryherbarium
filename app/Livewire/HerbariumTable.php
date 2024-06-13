@@ -44,16 +44,15 @@ final class HerbariumTable extends PowerGridComponent
                     ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
                 Header::make()->showSearchInput(),
                 Footer::make()
-                    ->showPerPage()
-                    ->showRecordCount(),
+                    ->showPerPage(perPage: 50, perPageValues: [25, 50, 100, 0]),
             ];
         }
         else {
             return [
                 Header::make()->showSearchInput(),
                 Footer::make()
-                    ->showPerPage()
-                    ->showRecordCount(),
+                    ->showRecordCount()
+                    ->showPerPage(perPage: 50, perPageValues: [25, 50, 100, 0]),
             ];
         }
     }
