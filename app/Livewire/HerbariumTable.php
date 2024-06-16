@@ -65,13 +65,17 @@ final class HerbariumTable extends PowerGridComponent
             ->join('families', function ($families) {
                 $families->on('herbarium.family_id', '=', 'families.id');
             })
+            ->join('places', function ($places) {
+                $places->on('herbarium.place_id', '=', 'places.id');
+            })            
             ->join('genus', function ($genus) {
                 $genus->on('herbarium.genus_id', '=', 'genus.id');
             })
             ->select([
                 'herbarium.*',
                 'families.family',
-                'genus.name AS genus_name'
+                'genus.name AS genus_name',
+                'places.name AS place_name',
             ]);
     }
 
@@ -83,7 +87,10 @@ final class HerbariumTable extends PowerGridComponent
             ],
             'genus' => [ // relationship on genus model
                 'name', // column enabled to search
-            ],            
+            ], 
+            'place' => [
+                'name'
+            ]           
         ];
     }
 
@@ -141,7 +148,8 @@ final class HerbariumTable extends PowerGridComponent
             ->add('fruit')
             ->add('seeds')
             ->add('forest')
-            ->add('created_at');
+            ->add('created_at')
+            ->add('place_name');
     }
 
     public function columns(): array
@@ -154,6 +162,10 @@ final class HerbariumTable extends PowerGridComponent
                 ->searchable(['query' => null]),
 
             Column::make('Family', 'family', 'families.family')
+                ->sortable()
+                ->searchable(),
+
+            Column::make('Place', 'place_name', 'places.name')
                 ->sortable()
                 ->searchable(),
 
@@ -270,7 +282,9 @@ final class HerbariumTable extends PowerGridComponent
             Column::make('Created at', 'created_at')
                 ->sortable()
                 ->searchable()
-                ->hidden(!Auth::check()),
+                ->hidden(),
+                //->hidden(!Auth::check()),
+
 
             Column::action('Action')->hidden(!Auth::check())
         ];
@@ -285,6 +299,7 @@ final class HerbariumTable extends PowerGridComponent
                 ->dataSource(Family::query()->orderBy('family', 'asc')->get())
                 ->optionLabel('family')
                 ->optionValue('id'),
+            Filter::inputText('place_name', 'places.name'),
             Filter::inputText('collection_number'),
             Filter::datepicker('collected_on'),
         ];
