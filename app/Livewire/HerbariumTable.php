@@ -176,11 +176,13 @@ final class HerbariumTable extends PowerGridComponent
 
             Column::make('Qty<br>duplicate', 'quantity_duplicate')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->hidden(),
 
             Column::make('Qty<br>lent', 'quantity_lent')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->hidden(),
 
             Column::make('Notes', 'notes')
                 ->sortable()
