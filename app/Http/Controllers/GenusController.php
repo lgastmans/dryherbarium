@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Genus;
+use App\Models\Herbarium;
 
 class GenusController extends Controller
 {
@@ -48,4 +50,31 @@ class GenusController extends Controller
 
         return $rows;
     }
+
+    public function generateLabel($id)
+    {
+
+        //$id = $request->has('id');
+
+        $herbarium = Herbarium::find($id);
+
+        $data = [
+            'title' => 'Herbarium',
+            'address' => 'Auroville, Tamil Nadu, India',
+            'herbarium' => $herbarium,
+        ];
+
+        $pdf = Pdf::loadView('herbarium-label', $data);
+        $pdf->setPaper('A4', 'landscape');
+        // return $pdf->download('herbarium-label.pdf');
+
+        return view('herbarium-label', $data);
+
+        /*
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'name.pdf');
+        */
+    }
+
 }

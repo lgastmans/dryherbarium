@@ -18,8 +18,9 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-//use PDF;
-use Spatie\LaravelPdf\Facades\Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Http;
+//use Spatie\LaravelPdf\Facades\Pdf;
 
 final class HerbariumTable extends PowerGridComponent
 {
@@ -27,8 +28,10 @@ final class HerbariumTable extends PowerGridComponent
 
     public string $primaryKey = 'herbarium.id';
 
-    public string $sortField = 'collection_number'; 
+//    public string $sortField = 'families.family, genuses.name'; 
+    public string $sortField = 'collection_number';
     public string $sortDirection = 'asc';
+    //public bool $withSortStringNumber = true;
 
     public bool $multiSort = true;
     
@@ -112,8 +115,8 @@ final class HerbariumTable extends PowerGridComponent
     {
         return PowerGrid::fields()
             ->add('id')
-            ->add('genus_name')
             ->add('family')
+            ->add('genus_name')
             //->add('family', fn ($herbarium) => e($herbarium->family->family))
             //->add('family_id')
             //->add('place_id')
@@ -157,13 +160,13 @@ final class HerbariumTable extends PowerGridComponent
         return [
             Column::make('Id', 'id')->hidden(),
 
-            Column::make('Genus', 'genus_name', 'genus.name')
-                ->sortable()
-                ->searchable(['query' => null]),
-
             Column::make('Family', 'family', 'families.family')
                 ->sortable()
                 ->searchable(),
+
+            Column::make('Genus', 'genus_name', 'genus.name')
+                ->sortable()
+                ->searchable(['query' => null]),
 
             Column::make('Place', 'place_name', 'places.name')
                 ->sortable()
@@ -306,16 +309,14 @@ final class HerbariumTable extends PowerGridComponent
     }
 
     #[\Livewire\Attributes\On('export-pdf')]
-    public function exportPdf($id): void
+    public function exportPdf($id) 
     {
+
         //$this->js('alert('.$id.')');
-        $this->js('alert("Under development.")');
+        //$this->js('alert("Under development.")');
+        $this->js('window.open("/herbarium-label/'.$id.'","_blank");');
+        //return $this->redirect('/herbarium-label');
         
-        // $pdf = PDF::loadView('herbarium-label',  []);
-        // $pdf->download('label.pdf');
-        // dd($pdf);
-        
-        //Pdf::view('herbarium-label')->save('/herbarium_label.pdf');
     }
 
     public function actions(Herbarium $row): array
@@ -339,6 +340,7 @@ final class HerbariumTable extends PowerGridComponent
                         </svg>')
                     ->class('inline-flex items-center px-2 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500')
                     ->dispatch('export-pdf', ['id' => $row->id]),
+                    //->route('herbarium-label', ['id' => $row->id]),
             ];
         }
         else

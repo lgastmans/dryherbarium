@@ -61,6 +61,7 @@
                 <br>
                 <x-button label="Save" positive lg green icon="save" type="submit" class="p-4"/>
                 <x-button label="Cancel" error lg red icon="x" class="p-4" wire:click="cancel" />
+                <x-button label="Label" teal lg icon="document-text" class="p-4" wire:click="label" />
                 <br><br>
 
 

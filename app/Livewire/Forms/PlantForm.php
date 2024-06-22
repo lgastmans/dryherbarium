@@ -9,6 +9,17 @@ use Livewire\Attributes\Validate;
 use App\Models\Herbarium;
 use Livewire\Form;
 
+
+
+/**
+ * 
+ * called from 
+ * 
+ * app/Livewire/UpdatePlant.php
+ * 
+ */
+
+
 class PlantForm extends Form
 {
 
@@ -360,7 +371,6 @@ class PlantForm extends Form
                 ->withProperties($arrChanged)
                 ->log('Plant details updated for collection number '.$this->herbarium->collection_number);            
         }
-
-    }
+    }   
     
 }

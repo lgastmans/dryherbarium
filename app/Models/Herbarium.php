@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Herbarium extends Model
 {
@@ -15,8 +16,7 @@ class Herbarium extends Model
     protected $table = 'herbarium';
 
     protected $fillable = [
-        'family_id','place_id','taluk_id','district_id','state_id','genus_id','status_id','collector1_id','collector2_id','collector3_id','specific_id',
-        'collection_number','herbarium_number','vernacular_name','quantity_main','quantity_duplicate','quantity_lent','notes','collected_on','latitude','longitude','altitude','habit','description','association','frequency','micro_habitat','leaf','phenology','flower','fruit','seeds','forest'
+        'family_id','place_id','taluk_id','district_id','state_id','genus_id','status_id','collector1_id','collector2_id','collector3_id','collector4_id','specific_id','collection_number','herbarium_number','vernacular_name','quantity_main','quantity_duplicate','quantity_lent','notes','collected_on','latitude','longitude','altitude','habit','description','association','frequency','micro_habitat','leaf','phenology','flower','fruit','seeds','forest'
     ];
 
 
@@ -67,9 +67,23 @@ class Herbarium extends Model
         return $this->belongsTo(Collector::class);
     }
 
+    public function getDisplayCollector1Attribute()
+    {
+        if (!is_null($this->collector1))
+            return $this->collector1->name." ".$this->collector1->surname;
+        else return "";
+    }
+
     public function collector2(): BelongsTo
     {
         return $this->belongsTo(Collector::class);
+    }
+
+    public function getDisplayCollector2Attribute()
+    {
+        if (!is_null($this->collector2))
+            return $this->collector2->name." ".$this->collector2->surname;
+        else return "";
     }
 
     public function collector3(): BelongsTo
@@ -77,4 +91,19 @@ class Herbarium extends Model
         return $this->belongsTo(Collector::class);
     }
 
+    public function getDisplayCollector3Attribute()
+    {
+        if (!is_null($this->collector3))
+            return $this->collector3->name." ".$this->collector3->surname;
+        else return "";
+    }
+
+    public function getDisplayCollectedOnAttribute()
+    {
+        if ($this->collected_on){
+            $dt = Carbon::parse($this->collected_on);
+            return $dt->toFormattedDateString(); 
+        } 
+        return "";
+    }
 }

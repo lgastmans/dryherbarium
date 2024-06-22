@@ -46,6 +46,7 @@ Route::get('/specifics', [SpecificController::class, 'index'])->name('specifics'
 Route::get('/statuses', [StatusController::class, 'index'])->name('statuses');
 Route::get('/collectors', [CollectorController::class, 'index'])->name('collectors');
 
+Route::get('/herbarium-label/{id}', [GenusController::class, 'generateLabel'])->name('herbarium-label');
 
 Route::get('users', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])
