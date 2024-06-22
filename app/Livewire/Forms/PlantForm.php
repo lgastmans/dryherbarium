@@ -91,6 +91,8 @@ class PlantForm extends Form
     public $seeds = '';
     public $notes = '';
 
+    public $images = null;
+
 
     public function setPlant(Herbarium $herbarium)
     {
@@ -153,6 +155,8 @@ class PlantForm extends Form
         $this->fruit = $herbarium->fruit;
         $this->seeds = $herbarium->seeds;
         $this->notes = $herbarium->notes;
+
+        $this->images = $herbarium->images;
 
     }
 

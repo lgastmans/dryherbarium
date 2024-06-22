@@ -5,6 +5,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
@@ -20,7 +21,11 @@ class Herbarium extends Model
     ];
 
 
-    
+    public function images(): HasMany
+    {
+        return $this->hasMany(HerbariumImages::class);
+    }
+
     public function family(): BelongsTo
     {
         return $this->belongsTo(Family::class);
