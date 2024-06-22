@@ -296,10 +296,10 @@
                     --}}
                     <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="images" role="tabpanel" aria-labelledby="images-tab">
 
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-2 md:grid-cols-2 gap-2">
                             @foreach($form->images as $image)
                                 <div>
-                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('Images/'.$image->filename) }}" alt="">
+                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('Images/'.$image->filename) }}" title="{{ $form->genus }}" alt="{{ $form->genus }}">
                                 </div>
                             @endforeach
                         </div>
