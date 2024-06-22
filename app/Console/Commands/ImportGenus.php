@@ -71,8 +71,12 @@ class ImportGenus extends Command
 
                 if ((empty($row[1])) || (is_null($row[1])))
                     $data[$i]['name'] = "name".$i;
-                else
-                    $data[$i]['name'] = $row[1];
+                else {
+                    if ((strlen($row[1]) > 0) && ($row[1][0] === "'"))
+                        $data[$i]['name'] = rtrim(substr($row[1], 1),"'");
+                    else
+                        $data[$i]['name'] = $row[1];
+                }
 
                 $i++;
             }
@@ -81,4 +85,5 @@ class ImportGenus extends Command
 
         return $data;
     }
+
 }

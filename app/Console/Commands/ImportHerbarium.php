@@ -42,6 +42,7 @@ class ImportHerbarium extends Command
         
         for ($i = 0; $i < $count; $i ++)
         {
+            $this->line(print_r($dataArr[$i]));
             $row = Herbarium::insert($dataArr[$i]);
         }
 
@@ -60,8 +61,10 @@ class ImportHerbarium extends Command
         if (($handle = fopen($filename, 'r')) !== false)
         {
             $i=0;
-            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false)
+            //while($line=fgets($fp,65535)) {
+            while (($row = fgetcsv($handle, 0, $delimiter)) !== false)
             {
+                //$this->line($row);
 
                 if ((empty($row[0])) || (is_null($row[0])))
                     $data[$i]['id'] = $i;
@@ -118,13 +121,15 @@ class ImportHerbarium extends Command
                 else
                     $data[$i]['collector3_id'] = $row[10];
 
-                /**
-                 * skip collector4
-                 */
-                $r = 11;
+                if ((empty($row[11])) || (is_null($row[11])) || ($row[11]==-1))
+                    $data[$i]['collector4_id'] = 0;
+                else
+                    $data[$i]['collector4_id'] = $row[11];
 
 
-                $r++;
+                $r = 12;
+
+
                 if ((empty($row[$r])) || (is_null($row[$r])) || ($row[$r]==-1))
                     $data[$i]['specific_id'] = 0;
                 else
@@ -170,7 +175,7 @@ class ImportHerbarium extends Command
                 if ((empty($row[$r])) || (is_null($row[$r])))
                     $data[$i]['collected_on'] = '';
                 else
-                    $data[$i]['collected_on'] = $row[$r];
+                    $data[$i]['collected_on'] = date('Y-m-d', strtotime($row[$r]));
 
                 $r++;
                 if ((empty($row[$r])) || (is_null($row[$r])))
@@ -210,7 +215,7 @@ class ImportHerbarium extends Command
                 if ((empty($row[$r])) || (is_null($row[$r])))
                     $data[$i]['description'] = '';
                 else
-                    $data[$i]['description'] = $row[$r];
+                    $data[$i]['description'] = str_replace(array("'", "\n", "\t", "\r"), '', $row[$r]);
 
                 $r++;
                 if ((empty($row[$r])) || (is_null($row[$r])))
