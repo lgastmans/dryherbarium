@@ -296,7 +296,7 @@ final class HerbariumTable extends PowerGridComponent
     public function filters(): array
     {
         return [
-            Filter::inputText('genus_name', 'name'),
+            Filter::inputText('genus_name', 'genus.name'),
             Filter::select('family', 'family_id')
                 //->dataSource(Family::all()->orderBy('family', 'desc'))
                 ->dataSource(Family::query()->orderBy('family', 'asc')->get())
