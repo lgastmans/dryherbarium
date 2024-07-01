@@ -47,13 +47,13 @@
 
 			.auro {
 				position: absolute; /* Position text absolutely within the table */
-				top: 0; /* Place it at the top */
+				top: -5px; /* Place it at the top */
 				right: 0; /* Place it at the right */
-				font-size: 2.3rem; /* Adjust font size as needed */
 				padding: 0px; /* Add some padding for better separation */
 				font-family: "Roboto", sans-serif;
-				font-weight: 300;
+				font-weight: 400;
 				font-style: normal;
+				font-size: 2.3rem; /* Adjust font size as needed */
 			}
 
 			.title {
