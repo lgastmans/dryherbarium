@@ -24,9 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('herbarium', function (Blueprint $table) {
-            $table->foreignId('family_id')->nullable()->change();
-            $table->foreignId('genus_id')->nullable()->change();
-            $table->string('collection_number', length: 32)->nullable()->change();
+            $table->dropColumn('family_id');
+            $table->dropColumn('genus_id');
+            $table->dropColumn('collection_number', length: 32);
         });
     }
 };

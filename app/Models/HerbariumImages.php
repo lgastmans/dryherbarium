@@ -11,11 +11,16 @@ class HerbariumImages extends Model
 
     protected $table = 'herbarium_images';
 
-    protected $fillable = ['herbarium_id', 'filename'];
+    protected $fillable = ['herbarium_id', 'genus_id', 'filename'];
 
     public function herbarium(): BelongsTo
     {
         return $this->belongsTo(Herbarium::class);
+    }
+
+    public function genus(): BelongsTo
+    {
+        return $this->belongsTo(Genus::class);
     }    
 
 }

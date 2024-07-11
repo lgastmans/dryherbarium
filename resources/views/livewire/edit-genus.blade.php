@@ -10,7 +10,6 @@
                     </div>
                     
                 </div>
-
             <br>
             <x-button label="Save" positive lg green icon="save" type="submit" class="p-4"/>        
         
