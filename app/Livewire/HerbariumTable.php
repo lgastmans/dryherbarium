@@ -291,7 +291,8 @@ final class HerbariumTable extends PowerGridComponent
                 //->hidden(!Auth::check()),
 
 
-            Column::action('Action')->hidden(!Auth::check())
+            //Column::action('Action')->hidden(!Auth::check())
+            Column::action('Action')
         ];
     }
 
