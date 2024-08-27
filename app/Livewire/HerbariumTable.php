@@ -70,7 +70,7 @@ final class HerbariumTable extends PowerGridComponent
             ->join('families', function ($families) {
                 $families->on('herbarium.family_id', '=', 'families.id');
             })
-            ->join('places', function ($places) {
+            ->leftjoin('places', function ($places) {
                 $places->on('herbarium.place_id', '=', 'places.id');
             })            
             ->join('genus', function ($genus) {
@@ -384,6 +384,14 @@ final class HerbariumTable extends PowerGridComponent
     public function refreshTable(): void
     {
         $this->dispatch('pg:eventRefresh-default');
+    }
+
+    #[On('genus-replaced')] 
+    public function notifyGenusReplaced()
+    {
+        //$this->js('alert("This '.$Model.' cannot be deleted - it is present in herbarium collection number: "+'.$ColNum.')');
+        //$this->js(' $dispatch("openModal", { component: "alert-herbarium", arguments: { Model: "'.$Model.'", ColNum: "'.$ColNum.'"} }); ');
+        session()->flash('status', 'Genus successfully replaced');
     }
 
     /*
