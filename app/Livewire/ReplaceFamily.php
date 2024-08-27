@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Family;
 use App\Models\Herbarium;
 
 class ReplaceFamily extends Component
@@ -22,8 +23,23 @@ class ReplaceFamily extends Component
 
         if ($rows->count() > 0) {
 
+            $family_from = "undefined";
+            $result = Family::find($this->from_family_id);
+            if ($result)
+                $family_from = $result->family;
+
+            $family_to = "undefined";
+            $row = Family::find($this->to_family_id);
+            if ($row)
+                $family_to = $row->family;
+
             $affectedRows = Herbarium::where('family_id', $this->from_family_id)
                 ->update(['family_id' => $this->to_family_id]);
+
+            activity()
+                ->performedOn($row)
+                ->withProperties(['family'=>$family_from." > ".$family_to])
+                ->log('Family replaced ('.$affectedRows.' entries).'); 
 
             session()->flash('family-replaced', $affectedRows.' herbarium entries successfully replaced');
         }

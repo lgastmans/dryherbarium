@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\Genus;
 use App\Models\Herbarium;
 
 class ReplaceGenus extends Component
@@ -17,14 +18,29 @@ class ReplaceGenus extends Component
             'to_genus_id' => 'required',
         ]);
 
-        $rows = Herbarium::where('genus_id', $this->from_genus_id)->get();
+        $model = Herbarium::where('genus_id', $this->from_genus_id)->get();
 
-        if ($rows->count() > 0) {
+        if ($model->count() > 0) {
+
+            $genus_from = "undefined";
+            $result = Genus::find($this->from_genus_id);
+            if ($result)
+                $genus_from = $result->name;
+
+            $genus_to = "undefined";
+            $row = Genus::find($this->to_genus_id);
+            if ($row)
+                $genus_to = $row->name;
 
             $affectedRows = Herbarium::where('genus_id', $this->from_genus_id)
                 ->update(['genus_id' => $this->to_genus_id]);
-
-            //dispatch('genus-replaced');
+        
+            activity()
+                ->performedOn($row)
+                ->withProperties(['genus'=>$genus_from." > ".$genus_to])
+                ->log('Genus replaced ('.$affectedRows.' entries).');   
+ 
+            $this->dispatch('genus-replaced');
             session()->flash('genus-replaced', $affectedRows.' genus(es) successfully replaced');
         }
         else {
