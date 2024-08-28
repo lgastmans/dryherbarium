@@ -47,9 +47,17 @@ final class HerbariumTable extends PowerGridComponent
 
         if (Auth::check()) {
             return [
-                Exportable::make('export')
+                Exportable::make(fileName: 'dry-herbarium')
                     ->striped()
-                    ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
+                    ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV)
+                    ->columnWidth([
+                        1 => 50,
+                        2 => 80,
+                        3 => 40,
+                        4 => 25,
+                        5 => 25,
+                        6 => 20
+                    ]),
                 Header::make()->showSearchInput(),
                 Footer::make()
                     ->showPerPage(perPage: 50, perPageValues: [25, 50, 100, 0]),
@@ -168,23 +176,28 @@ final class HerbariumTable extends PowerGridComponent
 
             Column::make('Family', 'family', 'families.family')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->visibleInExport(visible: true),
 
             Column::make('Genus', 'genus_name', 'genus.name')
                 ->sortable()
-                ->searchable(['query' => null]),
+                ->searchable(['query' => null])
+                ->visibleInExport(visible: true),
 
             Column::make('Place', 'place_name', 'places.name')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->visibleInExport(visible: true),
 
             Column::make('Collection<br>number', 'collection_number')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->visibleInExport(visible: true),
 
             Column::make('Herbarium<br>number', 'herbarium_number')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->visibleInExport(visible: false),
 
             Column::make('Vernacular name', 'vernacular_name')
                 ->sortable()
@@ -193,7 +206,8 @@ final class HerbariumTable extends PowerGridComponent
 
             Column::make('Qty<br>main', 'quantity_main')
                 ->sortable()
-                ->searchable(),
+                ->searchable()
+                ->visibleInExport(visible: true),
 
             Column::make('Qty<br>duplicate', 'quantity_duplicate')
                 ->sortable()
@@ -212,7 +226,8 @@ final class HerbariumTable extends PowerGridComponent
                 ->hidden(),
 
             Column::make('Collected on', 'collected_on_formatted', 'collected_on')
-                ->sortable(),
+                ->sortable()
+                ->visibleInExport(visible: true),
 
             Column::make('Latitude', 'latitude')
                 ->sortable()
@@ -297,6 +312,7 @@ final class HerbariumTable extends PowerGridComponent
 
             //Column::action('Action')->hidden(!Auth::check())
             Column::action('Action')
+                ->visibleInExport(visible: false)
         ];
     }
 
