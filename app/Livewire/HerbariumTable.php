@@ -40,6 +40,9 @@ final class HerbariumTable extends PowerGridComponent
 
     public function setUp(): array
     {
+
+        $this->persist(['columns', 'filters'], prefix: auth()->id ?? '');       
+
         $this->showCheckBox();
 
         if (Auth::check()) {
@@ -60,6 +63,7 @@ final class HerbariumTable extends PowerGridComponent
                     ->showPerPage(perPage: 50, perPageValues: [25, 50, 100, 0]),
             ];
         }
+
     }
 
     public function datasource(): Builder
