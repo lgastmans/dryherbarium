@@ -23,7 +23,11 @@ class CreatePlant extends Component
         return $this->redirect('/plants');
     }
 
-
+    public function cancel()
+    {
+        return $this->redirect('/plants');
+    }
+    
     #[Title('Create Plant')]
     public function render()
     {
