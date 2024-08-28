@@ -124,4 +124,13 @@ return [
             'csv'  => \PowerComponents\LivewirePowerGrid\Components\Exports\OpenSpout\v3\ExportToCsv::class,
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Persisting
+    |--------------------------------------------------------------------------
+    |
+    */
+
+    'persist_driver' => 'session',
 ];
