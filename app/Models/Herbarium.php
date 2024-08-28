@@ -107,7 +107,8 @@ class Herbarium extends Model
     {
         if ($this->collected_on){
             $dt = Carbon::parse($this->collected_on);
-            return $dt->toFormattedDateString(); 
+            return $dt->format('d.m.Y');
+            //return $dt->toFormattedDateString(); 
         } 
         return "";
     }
