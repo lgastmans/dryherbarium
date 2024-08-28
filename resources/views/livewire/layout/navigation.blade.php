@@ -63,6 +63,9 @@ new class extends Component
                             <x-dropdown-link :href="route('family.replace')" wire:navigate>
                                 {{ __('Replace Family') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('place.replace')" wire:navigate>
+                                {{ __('Replace Place') }}
+                            </x-dropdown-link>
                         </x-slot>
                     </x-dropdown-laravel>                    
 

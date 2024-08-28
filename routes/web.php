@@ -3,6 +3,7 @@ use App\Livewire\CreatePlant;
 use App\Livewire\UpdatePlant;
 use App\Livewire\DeletePlant;
 use App\Livewire\ReplaceGenus;
+use App\Livewire\ReplacePlace;
 use App\Livewire\ReplaceFamily;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\TalukController;
@@ -39,6 +40,7 @@ Route::get('/plants/update/{herbarium}', UpdatePlant::class)->name('plants.updat
 
 Route::get('/plants/replace-genus', ReplaceGenus::class)->name('genus.replace');
 Route::get('/plants/replace-family', ReplaceFamily::class)->name('family.replace');
+Route::get('/plants/replace-place', ReplacePlace::class)->name('place.replace');
 
 
 Route::get('/families', [FamilyController::class, 'index'])->name('families');
