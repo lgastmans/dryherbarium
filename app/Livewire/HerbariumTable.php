@@ -335,11 +335,25 @@ final class HerbariumTable extends PowerGridComponent
     public function exportPdf($id) 
     {
 
-        //$this->js('alert('.$id.')');
-        //$this->js('alert("Under development.")');
-        $this->js('window.open("/herbarium-label/'.$id.'","_blank");');
-        //return $this->redirect('/herbarium-label');
-        
+        $herbarium = Herbarium::find($id);
+
+        $data = [
+            'title' => 'Herbarium',
+            'address' => 'Auroville, Tamil Nadu, India',
+            'herbarium' => $herbarium,
+        ];
+
+        $pdf = Pdf::loadView('herbarium-label', $data);
+        // return $pdf->download('herbarium-label.pdf');
+
+        return response()->streamDownload(function () use ($pdf) {
+            echo $pdf->stream();
+        }, 'herbarium-label-'.$herbarium->collection_number.'.pdf');
+
+        /**
+         * to open the label in a new window use the line below
+         */
+        //$this->js('window.open("/herbarium-label/'.$id.'","_blank");');        
     }
 
     public function actions(Herbarium $row): array
