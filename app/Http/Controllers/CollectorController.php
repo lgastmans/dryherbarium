@@ -47,7 +47,7 @@ class CollectorController extends Controller
         }
 
         $rows = $query->select('id')
-            ->selectRaw('CONCAT(name, " ", surname) AS name')
+            ->selectRaw('CONCAT(name, " ", COALESCE(surname, "")) AS name')
             ->get();
         //$rows = $query->select('id', 'name', 'surname')->get();
 

@@ -17,6 +17,6 @@ class Collector extends Model
 
     public function getDisplayCollectorAttribute()
     {
-        return $this->name." ".$this->surname;
+        return $this->name." ".(is_null($this->surname)? "" : $this->surname);
     }    
 }

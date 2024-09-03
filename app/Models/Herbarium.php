@@ -75,7 +75,7 @@ class Herbarium extends Model
     public function getDisplayCollector1Attribute()
     {
         if (!is_null($this->collector1))
-            return $this->collector1->name." ".$this->collector1->surname;
+            return $this->collector1->name." ".(is_null($this->collector1->surname)? "" : $this->collector1->surname);
         else return "";
     }
 
@@ -87,7 +87,7 @@ class Herbarium extends Model
     public function getDisplayCollector2Attribute()
     {
         if (!is_null($this->collector2))
-            return $this->collector2->name." ".$this->collector2->surname;
+            return $this->collector2->name." ".(is_null($this->collector2->surname)? "" : $this->collector2->surname);
         else return "";
     }
 
@@ -99,7 +99,7 @@ class Herbarium extends Model
     public function getDisplayCollector3Attribute()
     {
         if (!is_null($this->collector3))
-            return $this->collector3->name." ".$this->collector3->surname;
+            return $this->collector3->name." ".(is_null($this->collector3->surname)? "" : $this->collector3->surname);
         else return "";
     }
 

@@ -120,6 +120,9 @@ final class HerbariumTable extends PowerGridComponent
                     ->class('text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80')
                     ->route('plants.create', []),
                     // ->openModal('projects-save', []),
+                // Button::add('download-labels')
+                //     ->slot('Download Labels')
+                //     ->dispatch('download-labels', []),
             ];
         }
             return [];
@@ -354,6 +357,12 @@ final class HerbariumTable extends PowerGridComponent
          * to open the label in a new window use the line below
          */
         //$this->js('window.open("/herbarium-label/'.$id.'","_blank");');        
+    }
+
+    #[\Livewire\Attributes\On('download-labels')]
+    public function downloadLabels() 
+    {
+        $this->js('download-labels');
     }
 
     public function actions(Herbarium $row): array
