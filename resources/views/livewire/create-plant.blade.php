@@ -149,10 +149,10 @@
                             </div>
 
                             <div class="sm:col-span-1">
-                                <x-input wire:model="form.latitude" label="Latitude" placeholder="Latitude" />
+                                <x-input wire:model="form.latitude" label="Latitude" placeholder="Latitude" hint="Alt+0176 for ° (degree symbol)" />
                             </div>
                             <div class="sm:col-span-1">
-                                <x-input wire:model="form.longitude" label="Longitude" placeholder="Longitude" />
+                                <x-input wire:model="form.longitude" label="Longitude" placeholder="Longitude" hint="Alt+0176 for ° (degree symbol)" />
                             </div>
                             <div class="sm:col-span-1">
                                 <x-input wire:model="form.altitude" label="Altitude" placeholder="Altitude" />
