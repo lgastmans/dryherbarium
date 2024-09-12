@@ -269,57 +269,57 @@ class PlantForm extends Form
 
             if ($this->herbarium->wasChanged('genus_id')) {
                 $this->herbarium->load('genus');
-                $arrChanged['genus'] = (is_null($model->genus)? 'Empty' : $model->genus->name)." > ".(is_null($this->herbarium->genus->name)? 'Empty' : $this->herbarium->genus->name);
+                $arrChanged['genus'] = (is_null($model->genus)? 'Empty' : $model->genus->name)." > ".(is_null($this->herbarium->genus)? 'Empty' : $this->herbarium->genus->name);
             }
 
             if ($this->herbarium->wasChanged('family_id')) {
                 $this->herbarium->load('family');
-                $arrChanged['family'] = (is_null($model->family)? 'Empty' : $model->family->family)." > ".(is_null($this->herbarium->family->family)? 'Empty' : $this->herbarium->family->family);
+                $arrChanged['family'] = (is_null($model->family)? 'Empty' : $model->family->family)." > ".(is_null($this->herbarium->family)? 'Empty' : $this->herbarium->family->family);
             }
 
             if ($this->herbarium->wasChanged('place_id')) {
                 $this->herbarium->load('place');
-                $arrChanged['place'] = (is_null($model->place)? 'Empty' : $model->place->name)." > ".(is_null($this->herbarium->place->name)? 'Empty' : $this->herbarium->place->name);
+                $arrChanged['place'] = (is_null($model->place)? 'Empty' : $model->place->name)." > ".(is_null($this->herbarium->place)? 'Empty' : $this->herbarium->place->name);
             }
 
             if ($this->herbarium->wasChanged('taluk_id')) {
                 $this->herbarium->load('taluk');
-                $arrChanged['taluk'] = (is_null($model->taluk)? 'Empty' : $model->taluk->name)." > ".(is_null($this->herbarium->taluk->name)? 'Empty' : $this->herbarium->taluk->name);
+                $arrChanged['taluk'] = (is_null($model->taluk)? 'Empty' : $model->taluk->name)." > ".(is_null($this->herbarium->taluk)? 'Empty' : $this->herbarium->taluk->name);
             }
 
             if ($this->herbarium->wasChanged('district_id')) {
                 $this->herbarium->load('district');
-                $arrChanged['district'] = (is_null($model->district)? 'Empty' : $model->district->name)." > ".(is_null($this->herbarium->district->name)? 'Empty' : $this->herbarium->district->name);
+                $arrChanged['district'] = (is_null($model->district)? 'Empty' : $model->district->name)." > ".(is_null($this->herbarium->district)? 'Empty' : $this->herbarium->district->name);
             }
 
             if ($this->herbarium->wasChanged('state_id')) {
                 $this->herbarium->load('state');
-                $arrChanged['state'] = (is_null($model->state)? 'Empty' : $model->state->name)." > ".(is_null($this->herbarium->state->name)? 'Empty' : $this->herbarium->state->name);
+                $arrChanged['state'] = (is_null($model->state)? 'Empty' : $model->state->name)." > ".(is_null($this->herbarium->state)? 'Empty' : $this->herbarium->state->name);
             }
 
             if ($this->herbarium->wasChanged('specific_id')) {
                 $this->herbarium->load('specific');
-                $arrChanged['specific'] = (is_null($model->specific)? 'Empty' : $model->specific->name)." > ".(is_null($this->herbarium->specific->name)? 'Empty' : $this->herbarium->specific->name);
+                $arrChanged['specific'] = (is_null($model->specific)? 'Empty' : $model->specific->name)." > ".(is_null($this->herbarium->specific)? 'Empty' : $this->herbarium->specific->name);
             }
 
             if ($this->herbarium->wasChanged('status_id')) {
                 $this->herbarium->load('status');
-                $arrChanged['status'] = (is_null($model->status)? 'Empty' : $model->status->name)." > ".(is_null($this->herbarium->status->name)? 'Empty' : $this->herbarium->status->name);
+                $arrChanged['status'] = (is_null($model->status)? 'Empty' : $model->status->name)." > ".(is_null($this->herbarium->status)? 'Empty' : $this->herbarium->status->name);
             }
 
             if ($this->herbarium->wasChanged('collector1_id')) {
                 $this->herbarium->load('collector1');
-                $arrChanged['collector1'] = (is_null($model->collector1)? 'Empty' : $model->collector1->display_collector)." > ".(is_null($this->herbarium->collector1->display_collector)? 'Empty' : $this->herbarium->collector1->display_collector);
+                $arrChanged['collector1'] = (is_null($model->collector1)? 'Empty' : $model->collector1->display_collector)." > ".(is_null($this->herbarium->collector1)? 'Empty' : $this->herbarium->collector1->display_collector);
             }
 
             if ($this->herbarium->wasChanged('collector2_id')) {
                 $this->herbarium->load('collector2');
-                $arrChanged['collector2'] = (is_null($model->collector2)? 'Empty' : $model->collector2->display_collector)." > ".(is_null($this->herbarium->collector2->display_collector)? 'Empty' : $this->herbarium->collector2->display_collector);
+                $arrChanged['collector2'] = (is_null($model->collector2)? 'Empty' : $model->collector2->display_collector)." > ".(is_null($this->herbarium->collector2)? 'Empty' : $this->herbarium->collector2->display_collector);
             }
 
             if ($this->herbarium->wasChanged('collector3_id')) {
                 $this->herbarium->load('collector3');
-                $arrChanged['collector3'] = (is_null($model->collector3)? 'Empty' : $model->collector3->display_collector)." > ".(is_null($this->herbarium->collector3->display_collector)? 'Empty' : $this->herbarium->collector3->display_collector);
+                $arrChanged['collector3'] = (is_null($model->collector3)? 'Empty' : $model->collector3->display_collector)." > ".(is_null($this->herbarium->collector3)? 'Empty' : $this->herbarium->collector3->display_collector);
             }
 
 
