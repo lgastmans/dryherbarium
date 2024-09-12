@@ -162,7 +162,7 @@
 		                    <b>Location</b>
 		                </td>
 		                <td colspan="3">
-		                    {{ $herbarium->place->name }}
+		                    {{ $herbarium->place->name ?? '' }}
 		                </td>
 		            </tr>
 		            <tr>
@@ -170,11 +170,11 @@
 		            		<table cellpadding="0" cellspacing="0" border="0">
 		            			<tr>
 		            				<td style="width: 12%"><b>Taluk</b></td>
-		            				<td style="width: 20%">{{ $herbarium->taluk->name }}</td>
+		            				<td style="width: 20%">{{ $herbarium->taluk->name ?? '' }}</td>
 		            				<td style="width: 12%" align="right"><b>District</b></td>
-		            				<td style="width: 20%">{{ $herbarium->district->name }}</td>
+		            				<td style="width: 20%">{{ $herbarium->district->name ?? '' }}</td>
 		            				<td style="width: 12%" align="right"><b>State</b></td>
-		            				<td style="width: 20%">{{ $herbarium->state->name }}</td>
+		            				<td style="width: 20%">{{ $herbarium->state->name ?? ''}}</td>
 		            			</tr>
 		            		</table>
 		            	</td>
