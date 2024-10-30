@@ -29,7 +29,7 @@ class Genus extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(HerbariumImages::class);
+        return $this->hasMany(GenusImage::class);
     }
 
 }

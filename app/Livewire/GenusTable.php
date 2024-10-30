@@ -134,16 +134,20 @@ final class GenusTable extends PowerGridComponent
                 </svg>')
                 ->class('inline-flex items-center px-2 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-red-700 bg-white hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500')
                 ->openModal('view-genus', ['genus' => $row]),
+
         ];
     }
 
     public function actionRules(): array
     {
+        return [];
+        /*
         return [
             Rule::button('images')
                 ->when(fn(Genus $genus) => $genus->images->count() <= 0)
                 ->hide()
         ];
+        */
     }
 
     #[On('genus-exists')] 

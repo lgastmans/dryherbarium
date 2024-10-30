@@ -23,7 +23,7 @@ class Herbarium extends Model
 
     public function images(): HasMany
     {
-        return $this->hasMany(HerbariumImages::class);
+        return $this->hasMany(GenusImage::class, 'genus_id', 'genus_id');
     }
 
     public function family(): BelongsTo

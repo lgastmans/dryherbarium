@@ -30,7 +30,7 @@
         @foreach($images as $image)
             <div>
                 <a href="#">
-                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('Images/'.$image->filename) }}" wire:click="$dispatch('openImageModal', { component: 'view-herbarium-image', arguments: { imageUrl: '{{ $image->filename }}' }})" title="" alt="">
+                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('photos/'.$image->filename) }}" wire:click="$dispatch('openImageModal', { component: 'view-herbarium-image', arguments: { imageUrl: '{{ $image->filename }}' }})" title="" alt="">
             </div>
         @endforeach
     </div>

@@ -16,7 +16,10 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\SpecificController;
 use App\Http\Controllers\CollectorController;
+use App\Http\Controllers\GenusImageController;
 use Illuminate\Support\Facades\Route;
+
+use App\Livewire\UploadGenusImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +57,11 @@ Route::get('/statuses', [StatusController::class, 'index'])->name('statuses');
 Route::get('/collectors', [CollectorController::class, 'index'])->name('collectors');
 
 Route::get('/herbarium-label/{id}', [GenusController::class, 'generateLabel'])->name('herbarium-label');
+
+
+Route::get('/genus-images', [GenusImageController::class, 'index']);
+Route::post('/genus-images', [GenusImageController::class, 'store']);
+Route::get('/upload-genus-image', UploadGenusImage::class);
 
 Route::get('users', [UserController::class, 'index'])
     ->middleware(['auth', 'verified'])

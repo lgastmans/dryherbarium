@@ -76,4 +76,5 @@ class EditGenus extends ModalComponent
     {
         return view('livewire.edit-genus');
     }
+    
 }

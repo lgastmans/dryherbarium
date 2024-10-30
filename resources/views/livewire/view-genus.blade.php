@@ -1,16 +1,20 @@
-<div class="relative w-full max-w-7xl max-h-full p-6 m-6">
+<div class="relative p-4 w-full max-h-full">
 
-    <div class="grid grid-cols-2 7xl:grid-cols-2 gap-2">
-        @foreach($images as $image)
-            <div>
-                <img class="h-auto max-w-full rounded-lg" src="{{ asset('Images/'.$image->filename) }}" title="" alt="">
-            </div>
-        @endforeach
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+
+        <div class="p-5">
+            <h5 class="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white text-center">{{ $genus->name }}</h5>
+        </div>
+
+        <livewire:upload-genus-image :genus_id="$id" />
+
+        <div class="table-responsive">
+            <livewire:genus-images-table :genus_id="$id" />
+        </div>
+
     </div>
-
+    
 </div>
-
-
 
 
 

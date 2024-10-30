@@ -11,6 +11,7 @@ class ViewGenus extends ModalComponent
     public $id = null;
     public $name = '';
     public $images;
+    public $count = 0;
 
 
     public function mount(Genus $genus)
@@ -20,6 +21,7 @@ class ViewGenus extends ModalComponent
         $this->id = $genus->id;
         $this->name = $genus->name;
         $this->images = $genus->images;
+        $this->count = count($genus->images);
     }
 
     public function render()

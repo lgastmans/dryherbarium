@@ -33,6 +33,7 @@ final class ActivityLogTable extends PowerGridComponent
                 ->type(Exportable::TYPE_XLS, Exportable::TYPE_CSV),
             Header::make()->showSearchInput(),
             Footer::make()
+                ->showPerPage(perPage: 50, perPageValues: [25, 50, 100, 0])
                 ->showPerPage()
                 ->showRecordCount(),
         ];
