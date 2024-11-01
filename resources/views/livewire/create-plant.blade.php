@@ -303,7 +303,7 @@
                             @else
                                 @foreach($form->images as $image)
                                     <div>
-                                        <img class="h-auto max-w-full rounded-lg" src="{{ asset('Images/'.$image->filename) }}" title="{{ $form->genus }}" alt="{{ $form->genus }}">
+                                        <img class="h-auto max-w-full rounded-lg" src="{{ asset('photos/'.$image->filename) }}" title="{{ $form->genus }}" alt="{{ $form->genus }}">
                                     </div>
                                 @endforeach
                             @endif

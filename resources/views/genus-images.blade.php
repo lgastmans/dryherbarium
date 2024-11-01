@@ -10,7 +10,7 @@
 
         <div class="grid">
             @foreach ($images as $image)
-                <img src="{{ asset('storage/' . $image->path) }}" alt="Image">
+                <img src="{{ asset('photos/' . $image->path) }}" alt="Image">
             @endforeach
         </div>
 

@@ -12,7 +12,7 @@ class UploadGenusImage extends Component
 {
     use WithFileUploads;
  
-    #[Validate('image|mimes:jpeg,png,jpg,gif,svg|max:5000')] // 1MB Max
+    #[Validate('image|mimes:jpeg,png,jpg,gif,svg|max:5000')] 
     public $photo;
 
     public $genus_id = null;
@@ -29,7 +29,6 @@ class UploadGenusImage extends Component
         $filename = $this->photo->getClientOriginalName();
 
         $this->photo->storeAs('photos', $filename, 'public');
-
 
         GenusImage::create(['genus_id' => $this->genus_id, 'filename' => $filename]);
 
