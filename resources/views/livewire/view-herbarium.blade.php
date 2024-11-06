@@ -1,5 +1,7 @@
 {{--
-    These are the images display in the modal popup on the Herbarium grid 
+
+    Eventually this component could show the main details of a herbarium collection
+
 --}}
 
 <div class="relative w-full max-w-7xl max-h-full p-6">

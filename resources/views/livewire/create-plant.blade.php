@@ -298,13 +298,16 @@
                     --}}
                     <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="images" role="tabpanel" aria-labelledby="images-tab">
 
-                        <livewire:upload-herbarium-image :herbarium_id="$form->id" :genus_id="$form->genus_id"/>
-
-                        <div class="table-responsive">
-                            <livewire:herbarium-images-table :herbarium_id="$form->id" />
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                            @foreach($form->images as $image)
+                                <div>
+                                    <img class="h-auto max-w-full rounded-lg" src="{{ asset('herbarium/'.$image->filename) }}" alt="">
+                                </div>
+                            @endforeach
                         </div>
 
                     </div>
+
                 </div>
 
             </div>

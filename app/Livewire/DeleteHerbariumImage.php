@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class DeleteHerbariumImage extends ModalComponent
 {
+
     public HerbariumImages $HerbariumImages;
 
     public $id;
@@ -30,7 +31,7 @@ class DeleteHerbariumImage extends ModalComponent
         */
 
         $this->dispatch('refreshHerbariumImageTable');
-        //$this->closeModal();
+        $this->closeModal();
 
     }
 
