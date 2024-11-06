@@ -1,4 +1,7 @@
 <?php
+/*
+    These are the images display in the modal popup on the Herbarium grid 
+*/
 
 namespace App\Livewire;
 
