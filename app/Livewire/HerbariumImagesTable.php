@@ -76,6 +76,7 @@ final class HerbariumImagesTable extends PowerGridComponent
             Column::make('Filename', 'filename')
                 ->title(''),
 
+
             Column::make('Created at', 'created_at')
                 ->hidden(),
 
