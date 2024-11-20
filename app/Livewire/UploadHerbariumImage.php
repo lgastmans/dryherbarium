@@ -26,7 +26,8 @@ class UploadHerbariumImage extends Component
 
     public function save()
     {
-        if ($photo) {
+        if ($this->photo) {
+            
             // Store the file
             $filename = $this->photo->getClientOriginalName();
 
