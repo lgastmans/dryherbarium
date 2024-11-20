@@ -26,14 +26,16 @@ class UploadHerbariumImage extends Component
 
     public function save()
     {
-        // Store the file
-        $filename = $this->photo->getClientOriginalName();
+        if ($photo) {
+            // Store the file
+            $filename = $this->photo->getClientOriginalName();
 
-        $this->photo->storeAs('herbarium', $filename, 'public');
+            $this->photo->storeAs('herbarium', $filename, 'public');
 
-        HerbariumImages::create(['herbarium_id'=>$this->herbarium_id, 'genus_id'=>$this->genus_id, 'filename'=>$filename]);
+            HerbariumImages::create(['herbarium_id'=>$this->herbarium_id, 'genus_id'=>$this->genus_id, 'filename'=>$filename]);
 
-        $this->dispatch('refreshHerbariumImageTable');
+            $this->dispatch('refreshHerbariumImageTable');
+        }
     }
 
     public function render()
