@@ -293,6 +293,7 @@
                         </div>   
                     </div>
 
+                    @if (isset($form->images))
                     {{--
                         Images
                     --}}
@@ -307,6 +308,7 @@
                         </div>
 
                     </div>
+                    @endif
 
                 </div>
 
