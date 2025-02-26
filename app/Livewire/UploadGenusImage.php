@@ -30,7 +30,14 @@ class UploadGenusImage extends Component
 
         $this->photo->storeAs('photos', $filename, 'public');
 
-        GenusImage::create(['genus_id' => $this->genus_id, 'filename' => $filename]);
+        $model = GenusImage::create(['genus_id' => $this->genus_id, 'filename' => $filename]);
+
+        $genus = Genus::findOrFail($this->genus_id);
+
+        activity()
+           ->performedOn($model)
+           ->withProperties(['name'=>$genus->name])
+           ->log('Image added.');         
 
         $this->dispatch('refreshGenusImageTable');
     }

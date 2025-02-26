@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Genus;
 use App\Models\HerbariumImages;
 use LivewireUI\Modal\ModalComponent;
 use Illuminate\Support\Facades\Storage;
@@ -23,12 +24,13 @@ class DeleteHerbariumImage extends ModalComponent
 
         $herbarium_image->delete();
 
-        /*
+        $genus = Genus::findOrFail($herbarium_image->genus_id);
+
         activity()
-            ->performedOn($genus_image)
-            ->withProperties(['filename'=>$filename])
-            ->log('Genus image deleted.');
-        */
+            ->performedOn($herbarium_image)
+            ->withProperties(['name'=>$genus->name, 'filename'=>$herbarium_image->filename])
+            ->log('Image deleted.');
+        
 
         $this->dispatch('refreshHerbariumImageTable');
         $this->closeModal();

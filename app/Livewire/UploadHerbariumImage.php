@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 
+use App\Models\Genus;
 use App\Models\HerbariumImages;
 
 class UploadHerbariumImage extends Component
@@ -33,7 +34,15 @@ class UploadHerbariumImage extends Component
 
             $this->photo->storeAs('herbarium', $filename, 'public');
 
-            HerbariumImages::create(['herbarium_id'=>$this->herbarium_id, 'genus_id'=>$this->genus_id, 'filename'=>$filename]);
+            $model = HerbariumImages::create(['herbarium_id'=>$this->herbarium_id, 'genus_id'=>$this->genus_id, 'filename'=>$filename]);
+
+            $genus = Genus::findOrFail($this->genus_id);
+
+            activity()
+               ->performedOn($model)
+               ->withProperties(['name'=>$genus->name])
+               ->log('Image added.');         
+
 
             $this->dispatch('refreshHerbariumImageTable');
         }
