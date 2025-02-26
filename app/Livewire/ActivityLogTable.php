@@ -20,8 +20,8 @@ final class ActivityLogTable extends PowerGridComponent
 {
 
     //public string $primaryKey = 'activity_log.id';
-    public string $sortField = 'description';
-    //public string $sortDirection = 'desc';    
+    public string $sortField = 'created_at';
+    public string $sortDirection = 'desc';    
 
     public function setUp(): array
     {
