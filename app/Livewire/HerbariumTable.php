@@ -36,12 +36,14 @@ final class HerbariumTable extends PowerGridComponent
     //public bool $withSortStringNumber = true;
 
     public bool $multiSort = true;
-    
 
+    protected $queryString = [];
+
+    
     public function setUp(): array
     {
 
-        $this->persist(['columns', 'filters'], prefix: auth()->id ?? '');       
+//        $this->persist(['columns', 'filters'], prefix: auth()->id ?? '');       
 
         $this->showCheckBox();
 
@@ -88,6 +90,17 @@ final class HerbariumTable extends PowerGridComponent
             ->join('genus', function ($genus) {
                 $genus->on('herbarium.genus_id', '=', 'genus.id');
             })
+            /*
+            ->join('collectors as c1', function ($collector1){
+                $collector1->on('herbarium.collector1_id', '=', 'c1.id');
+            })
+            ->join('collectors as c2', function ($collector2){
+                $collector2->on('herbarium.collector2_id', '=', 'c2.id');
+            })
+            ->join('collectors as c3', function ($collector3){
+                $collector3->on('herbarium.collector3_id', '=', 'c3.id');
+            })
+            */
             ->select([
                 'herbarium.*',
                 'families.family',
@@ -154,6 +167,8 @@ final class HerbariumTable extends PowerGridComponent
             ->add('quantity_lent')
             ->add('notes')
             ->add('collected_on_formatted', fn (Herbarium $model) => Carbon::parse($model->collected_on)->format('d/m/Y'))
+            ->add('collected_by')
+            ->add('coordinates', fn(Herbarium $model) => ($model->latitude."<br>".$model->longitude))
             ->add('latitude')
             ->add('longitude')
             ->add('altitude')
@@ -225,21 +240,20 @@ final class HerbariumTable extends PowerGridComponent
             Column::make('Notes', 'notes')
                 ->sortable()
                 ->searchable()
-                ->hidden()
                 ->hidden(),
 
             Column::make('Collected on', 'collected_on_formatted', 'collected_on')
                 ->sortable()
                 ->visibleInExport(visible: true),
 
+            Column::make('Collected By', 'collected_by'),
+
+            Column::make('Coordinates', 'coordinates', 'coordinates'),
+
             Column::make('Latitude', 'latitude')
-                ->sortable()
-                ->searchable()
                 ->hidden(),
 
             Column::make('Longitude', 'longitude')
-                ->sortable()
-                ->searchable()
                 ->hidden(),
 
             Column::make('Altitude', 'altitude')
@@ -321,17 +335,22 @@ final class HerbariumTable extends PowerGridComponent
 
     public function filters(): array
     {
+        
         return [
             Filter::inputText('genus_name', 'genus.name'),
+                //->operators(['contains', 'is', 'is_not', 'is_blank', 'is_not_blank']),
             Filter::select('family', 'family_id')
                 //->dataSource(Family::all()->orderBy('family', 'desc'))
                 ->dataSource(Family::query()->orderBy('family', 'asc')->get())
                 ->optionLabel('family')
                 ->optionValue('id'),
             Filter::inputText('place_name', 'places.name'),
-            Filter::inputText('collection_number'),
+            Filter::inputText('collection_number')
+                ->placeholder('Collection Number'),
             Filter::datepicker('collected_on'),
         ];
+        
+        //return [];
     }
 
     #[\Livewire\Attributes\On('export-pdf')]

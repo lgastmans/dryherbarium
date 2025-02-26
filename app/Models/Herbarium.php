@@ -103,6 +103,11 @@ class Herbarium extends Model
         else return "";
     }
 
+    public function getCollectedByAttribute()
+    {
+        return "{$this->display_collector1}<br>{$this->display_collector2}<br>{$this->display_collector3}";
+    }
+
     public function getDisplayCollectedOnAttribute()
     {
         if ($this->collected_on){
