@@ -360,7 +360,7 @@ final class HerbariumTable extends PowerGridComponent
             //Column::action('Action')->hidden(!Auth::check())
             Column::action('Action')
                 ->visibleInExport(visible: false)
-                ->title('<div wire:ignore><button id="toggleImagesBtn" wire:click="filterWithImages" class="ml-2 bg-green-500 text-white px-2 py-1 rounded">Only Images</button></div>')
+                ->title('<div wire:ignore><button id="toggleImagesBtn" wire:click="filterWithImages" class="ml-2 bg-red-500 text-white px-2 py-1 rounded">Only Images</button></div>')
         ];
     }
 
