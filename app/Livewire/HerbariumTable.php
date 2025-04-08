@@ -15,7 +15,10 @@ use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Facades\Rule;
 use PowerComponents\LivewirePowerGrid\Footer;
 use PowerComponents\LivewirePowerGrid\Header;
+
 use PowerComponents\LivewirePowerGrid\PowerGrid;
+//use PowerComponents\LivewirePowerGrid\Facades\PowerGrid;
+
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
@@ -24,9 +27,16 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Http;
 //use Spatie\LaravelPdf\Facades\Pdf;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+// use Illuminate\Contracts\View\View;
+
+
 final class HerbariumTable extends PowerGridComponent
 {
     use WithExport;
+
+    public string $tableName = 'herbarium';
 
     public string $primaryKey = 'herbarium.id';
 
@@ -37,15 +47,25 @@ final class HerbariumTable extends PowerGridComponent
 
     public bool $multiSort = true;
 
+    public bool $onlyWithImages = false;
+
     protected $queryString = [];
 
-    
+
     public function setUp(): array
     {
 
 //        $this->persist(['columns', 'filters'], prefix: auth()->id ?? '');       
 
         $this->showCheckBox();
+
+        /*
+        DB::enableQueryLog(); // Enable query logging
+        // Listen for queries and log them
+        DB::listen(function ($query) {
+            Log::info("SQL: " . $query->sql, ['bindings' => $query->bindings, 'time' => $query->time]);
+        });
+        */
 
         if (Auth::check()) {
             return [
@@ -80,33 +100,42 @@ final class HerbariumTable extends PowerGridComponent
     {
         //return Herbarium::query()->with('family');
 
-        return Herbarium::query()
+        //return Herbarium::query()
+        $query = Herbarium::query()
             ->join('families', function ($families) {
                 $families->on('herbarium.family_id', '=', 'families.id');
             })
             ->leftjoin('places', function ($places) {
                 $places->on('herbarium.place_id', '=', 'places.id');
-            })            
+            })
             ->join('genus', function ($genus) {
                 $genus->on('herbarium.genus_id', '=', 'genus.id');
             })
-            /*
-            ->join('collectors as c1', function ($collector1){
+            
+            ->leftjoin('collectors as c1', function ($collector1){
                 $collector1->on('herbarium.collector1_id', '=', 'c1.id');
             })
-            ->join('collectors as c2', function ($collector2){
+            ->leftjoin('collectors as c2', function ($collector2){
                 $collector2->on('herbarium.collector2_id', '=', 'c2.id');
             })
-            ->join('collectors as c3', function ($collector3){
+            ->leftjoin('collectors as c3', function ($collector3){
                 $collector3->on('herbarium.collector3_id', '=', 'c3.id');
             })
+            ->selectRaw("herbarium.*, families.family, genus.name AS genus_name, places.name AS place_name");
+
+            /*
+            ->selectRaw("
+                herbarium.*, families.family, genus.name AS genus_name, places.name AS place_name,
+                CONCAT_WS(', ', CONCAT(c1.name, ' ', c1.surname), CONCAT(c2.name, ' ', c2.surname), CONCAT(c3.name, ' ', c3.surname)) AS collected_by
+            ");
             */
-            ->select([
-                'herbarium.*',
-                'families.family',
-                'genus.name AS genus_name',
-                'places.name AS place_name',
-            ]);
+        
+        if ($this->onlyWithImages) {
+            $query->whereHas('images'); // Only rows where images exist
+        }
+
+        return $query;
+
     }
 
     public function relationSearch(): array
@@ -120,7 +149,7 @@ final class HerbariumTable extends PowerGridComponent
             ], 
             'place' => [
                 'name'
-            ]           
+            ]
         ];
     }
 
@@ -248,7 +277,8 @@ final class HerbariumTable extends PowerGridComponent
 
             Column::make('Collected By', 'collected_by'),
 
-            Column::make('Coordinates', 'coordinates', 'coordinates'),
+            Column::make('Coordinates', 'coordinates', 'coordinates')
+                ->visibleInExport(visible: true),
 
             Column::make('Latitude', 'latitude')
                 ->hidden(),
@@ -330,6 +360,7 @@ final class HerbariumTable extends PowerGridComponent
             //Column::action('Action')->hidden(!Auth::check())
             Column::action('Action')
                 ->visibleInExport(visible: false)
+                ->title('<div wire:ignore><button id="toggleImagesBtn" wire:click="filterWithImages" class="ml-2 bg-green-500 text-white px-2 py-1 rounded">Only Images</button></div>')
         ];
     }
 
@@ -347,11 +378,44 @@ final class HerbariumTable extends PowerGridComponent
             Filter::inputText('place_name', 'places.name'),
             Filter::inputText('collection_number')
                 ->placeholder('Collection Number'),
-            Filter::datepicker('collected_on'),
+            Filter::datepicker('collected_on')
+            
+            /*
+            Filter::inputText('collected_by', 'collected_by')
+                ->builder(function ($query, $searchTerm) {
+                    \Log::info('Filter Input:', ['type' => gettype($searchTerm), 'value' => $searchTerm]);
+                    
+                    // Ensure $searchTerm is an array
+                    if (!is_array($searchTerm)) {
+                        \Log::error("Unexpected searchTerm format:", ["searchTerm" => $searchTerm]);
+                        return []; //$query; // Prevent crash
+                    }
+
+                    // Extract actual search value
+                    $searchText = $searchTerm['value'] ?? '';
+
+                    // Make sure it's a string
+                    if (!is_string($searchText)) {
+                        \Log::error("Search term value is not a string:", ["value" => $searchText]);
+                        return []; $query; // Prevents crash
+                    }
+
+                    \Log::info("Filtering Collected By:", ["searchText" => $searchText]);
+
+                    // Fix: Ensure we're not passing a string where an array is expected
+                    return $query->where(function ($q) use ($searchText) {
+                        $q->whereRaw("CONCAT(c3.name, ' ', c3.surname) LIKE ?", ["%$searchText%"])
+                          ->orWhereRaw("CONCAT(c2.name, ' ', c2.surname) LIKE ?", ["%$searchText%"])
+                          ->orWhereRaw("CONCAT(c1.name, ' ', c1.surname) LIKE ?", ["%$searchText%"]);
+                    });
+                })
+            */
+            
         ];
-        
+    
         //return [];
     }
+
 
     #[\Livewire\Attributes\On('export-pdf')]
     public function exportPdf($id) 
@@ -463,6 +527,18 @@ final class HerbariumTable extends PowerGridComponent
         //$this->js('alert("This '.$Model.' cannot be deleted - it is present in herbarium collection number: "+'.$ColNum.')');
         //$this->js(' $dispatch("openModal", { component: "alert-herbarium", arguments: { Model: "'.$Model.'", ColNum: "'.$ColNum.'"} }); ');
         session()->flash('status', 'Genus successfully replaced');
+    }
+
+
+    #[On('filterWithImages')] 
+    public function filterWithImages()
+    {
+        $this->onlyWithImages = !$this->onlyWithImages;
+
+        $this->dispatch('toggle-images-filter-updated', 
+            label: $this->onlyWithImages ? 'Show All' : 'Only Images',
+            color: $this->onlyWithImages ? 'bg-green-500' : 'bg-red-500'
+        );        
     }
 
     /*

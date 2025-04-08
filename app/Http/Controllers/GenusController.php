@@ -77,4 +77,20 @@ class GenusController extends Controller
         */
     }
 
+    public function generateLabelView($id)
+    {
+
+        //$id = $request->has('id');
+
+        $herbarium = Herbarium::find($id);
+
+        $data = [
+            'title' => 'Herbarium',
+            'address' => 'Auroville, Tamil Nadu, India',
+            'herbarium' => $herbarium,
+        ];
+
+        return view('herbarium-label', $data);
+    }
+
 }

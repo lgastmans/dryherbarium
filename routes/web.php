@@ -57,7 +57,7 @@ Route::get('/statuses', [StatusController::class, 'index'])->name('statuses');
 Route::get('/collectors', [CollectorController::class, 'index'])->name('collectors');
 
 Route::get('/herbarium-label/{id}', [GenusController::class, 'generateLabel'])->name('herbarium-label');
-
+Route::get('/herbarium-label/{id}/view', [GenusController::class, 'generateLabelView'])->name('herbarium-label-view');
 
 Route::get('/genus-images', [GenusImageController::class, 'index']);
 Route::post('/genus-images', [GenusImageController::class, 'store']);
